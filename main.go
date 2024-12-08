@@ -9,8 +9,13 @@ import (
 	"os"
 )
 
+var db *Db
+
 func requestHandler(writer http.ResponseWriter, request *http.Request) {
-	fmt.Printf("REQUEST GOT!!! %s from %s to [%s] %s %s\n", request.Proto, request.RemoteAddr, request.Method, request.Host, request.URL.Path)
+	err := db.InsertRequest(request)
+	if err != nil {
+		fmt.Printf("INSERT ERROR: %v\n", err)
+	}
 	http.NotFound(writer, request)
 }
 
@@ -25,10 +30,17 @@ func main() {
 
 	println("Hello WebHole!!")
 
+	println("Building db...")
+	var err error
+	db, err = NewDb("./webhole.db")
+	if err != nil {
+		log.Fatalf("Error initializing database: %v", err)
+	}
+
 	http.HandleFunc("/{path...}", requestHandler)
 
 	fmt.Printf("Listening on port %d\n", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	err = http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {

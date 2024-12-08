@@ -10,7 +10,14 @@
       <Request name="post" method="POST" url="http://{{URL}}/" id="b90f1f65-160c-4077-8d74-d258e9b0fbf9"/>
       <Request name="put" method="PUT" url="http://{{URL}}/" id="d4247ac5-7fd4-4741-83a9-c9e120969a18"/>
       <Request name="delete" method="DELETE" url="http://{{URL}}/" id="939c4343-bdec-4a62-bd1f-59516b8f516d"/>
-      <Request name="get random path" method="GET" url="http://{{URL}}/this/is/a/random/path" id="48f5060f-12ff-4eec-ada1-583be181433a"/>
+      <Request name="get random path" method="GET" url="http://{{URL}}/this/is/a/random/path" id="48f5060f-12ff-4eec-ada1-583be181433a">
+        <Header name="TestHeader" value="1234567890-"/>
+        <Header name="a" value="12"/>
+        <Parameter name="param" value="123"/>
+        <Body>{
+  "json": "test"
+}</Body>
+      </Request>
     </Collection>
   </Collections>
 </Project>
