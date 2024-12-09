@@ -21,7 +21,7 @@ mkdir -p $SYSTEMD_INSTALL_DIR
 cp ./*.go ./go.mod ./go.sum $WEB_HOLE_HOME
 cp ./webhole.service "$SYSTEMD_INSTALL_DIR/webhole.service"
 pushd $WEB_HOLE_HOME
-go build -o webhole
+go build -v -o webhole
 popd
 systemctl --user daemon-reload
 systemctl --user enable webhole
