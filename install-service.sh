@@ -6,14 +6,16 @@ echo $SYSTEMD_INSTALL_DIR
 set +a
 echo "[Unit]"                                          > "webhole.service"
 echo "Description=Web Hole"                            >> "webhole.service"
+echo "After=network.target"                            >> "webhole.service"
 echo ""                                                >> "webhole.service"
 echo "[Service]"                                       >> "webhole.service"
 echo "Type=notify"                                     >> "webhole.service"
+echo "Restart=on-failure"                              >> "webhole.service"
 echo "WorkingDirectory=$(readlink -f $WEB_HOLE_HOME)"  >> "webhole.service"
 echo "ExecStart=$(readlink -f $WEB_HOLE_HOME)/webhole" >> "webhole.service"
 echo ""                                                >> "webhole.service"
 echo "[Install]"                                       >> "webhole.service"
-echo "WantedBy=default.target"                         >> "webhole.service"
+echo "WantedBy=multi-user.target"                      >> "webhole.service"
 set -a
 
 mkdir -p $WEB_HOLE_HOME
