@@ -1,7 +1,7 @@
 SYSTEMD_INSTALL_DIR=~/.config/systemd/user
 WEB_HOLE_HOME=~/.webhole
 echo $WEB_HOLE_HOME
-echo $(readlink -f $WEB_HOLE_HOME)
+echo $SYSTEMD_INSTALL_DIR
 
 set +a
 echo "[Unit]"                                                           > "webhole.service"
@@ -16,9 +16,9 @@ echo "[Install]"                                                        >> "webh
 echo "WantedBy=default.target"                                          >> "webhole.service"
 set -a
 
-mkdir -p $(readlink -f $WEB_HOLE_HOME)
-mkdir -p $(readlink -f $SYSTEMD_INSTALL_DIR)
-cp ./db.go ./main.go ./go.mod ./go.sum $(readlink -f $WEB_HOLE_HOME)
+mkdir -p $WEB_HOLE_HOME
+mkdir -p $SYSTEMD_INSTALL_DIR
+cp ./db.go ./main.go ./go.mod ./go.sum $WEB_HOLE_HOME
 cp ./webhole.service "$SYSTEMD_INSTALL_DIR/webhole.service"
 systemctl --user daemon-reload
 systemctl --user enable webhole
