@@ -17,6 +17,7 @@ echo "WantedBy=default.target"                                          >> "webh
 set -a
 
 mkdir -p $(readlink -f $WEB_HOLE_HOME)
+mkdir -p $(readlink -f $SYSTEMD_INSTALL_DIR)
 cp ./db.go ./main.go ./go.mod ./go.sum $(readlink -f $WEB_HOLE_HOME)
 cp ./webhole.service "$SYSTEMD_INSTALL_DIR/webhole.service"
 systemctl --user daemon-reload
